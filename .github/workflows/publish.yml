@@ -13,11 +13,13 @@ jobs:
     steps:
       # Step 1: Checkout the code
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        with:
+          persist-credentials: false
 
       # Step 2: Set up Node.js
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: '20' # Adjust Node.js version as needed
           registry-url: https://registry.npmjs.org/
@@ -42,13 +44,13 @@ jobs:
       - name: Publish to npm
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}"
 
       # Step 8: Create a GitHub release (optional)
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b  # v2.5.0
         with:
-          tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
+          tag_name: "${{ github.ref_name }}"
+          name: "${{ github.ref_name }}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
